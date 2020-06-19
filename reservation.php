@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -8,15 +10,17 @@
 <body>
 
 <form action="php/traitement/formulaire_reservation.php" method="POST">
-
+    <?php if (isset($_SESSION['erreur_date_debut'])) { echo "<p>".$_SESSION['erreur_date_debut']."</p>";} ?>
     <label for="date_debut">Date de debut :</label>
     <input type="date" id="date_debut" name="date_debut">
 
+    <?php if(isset($_SESSION['erreur_date_fin'])) {echo "<p>".$_SESSION['erreur_date_fin']."</p>" ;} ?>
     <label for="date_fin">Date de fin :</label>
     <input type="date" id="date_fin" name="date_fin">
 
     <label for="emplacement">Choisir l'emplacement :</label>
 
+    <?php if(isset($_SESSION['erreur_type'])) { echo "<p>".$_SESSION['erreur_type']."</p>" ;} ?>
     <select name="emplacement" id="emplacement">
         <option value="">Choissir un emplacement</option>
         <option value="La Plage">La Plage</option>
@@ -25,6 +29,7 @@
     </select>
 
     <label for="emplacement">Choisir l'emplacement :</label>
+    <?php if(isset($_SESSION['erreur_emplacement'])) { echo "<p>".$_SESSION['erreur_emplacement']."</p>"; } ?>
     <select name="type" id="type">
         <option value="">Choissir un type </option>
         <option value="tente">Tente</option>
@@ -32,13 +37,13 @@
     </select>
 
     <p>Options :</p>
-    <input type="checkbox" id="borne_electrique" name="borne_electrique" value="1">
+    <input type="checkbox" id="borne_electrique" name="options1" value="borne_electrique">
     <label for="borne_electrique" >Borne électrique</label>
 
-    <input type="checkbox" id="disco-club" name="disco-club" value="2">
+    <input type="checkbox" id="disco-club" name="options2" value="disco_club">
     <label for="disco-club" >Disco club</label>
 
-    <input type="checkbox" id="pack" name="pack" value="3">
+    <input type="checkbox" id="pack" name="options3" value="pack">
     <label for="pack" >Pack</label>
 
     
@@ -53,3 +58,5 @@
 
 </body>
 </html>
+
+<?php unset($_SESSION['erreur_date_debut'],$_SESSION['erreur_date_fin'],$_SESSION['erreur_type'],$_SESSION['erreur_emplacement']); ?>
