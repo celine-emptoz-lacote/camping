@@ -10,6 +10,7 @@
 <body>
 
 <form action="php/traitement/formulaire_reservation.php" method="POST">
+    <?php if (isset($_SESSION['erreur_resa'])) { echo "<p>".$_SESSION['erreur_resa']."</p>";} ?>
     <?php if (isset($_SESSION['erreur_date_debut'])) { echo "<p>".$_SESSION['erreur_date_debut']."</p>";} ?>
     <label for="date_debut">Date de debut :</label>
     <input type="date" id="date_debut" name="date_debut">

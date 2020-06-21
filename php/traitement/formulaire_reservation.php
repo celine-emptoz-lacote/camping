@@ -67,25 +67,27 @@ if (isset($_POST['submit'])) {
             for ($i = 0 ; $i < COUNT($resultat) ; $i ++) {
                 if( (  $debut >= $resultat[$i]['debut']  &&   $debut <= $resultat[$i]['fin'] ) || ( $resultat[$i]['debut'] <= $fin && $resultat[$i]['fin'] <= $fin) ) {
                     
-                    $requete_compte = "SELECT SUM(type) FROM reservations WHERE emplacement = '$empla' AND  ((debut <= '$debut' AND debut <= '$fin') OR (fin  <= '$debut' AND fin <= '$fin'))";
+                    $requete_compte = "SELECT SUM(`type`) FROM reservations WHERE `emplacement`='$empla' AND (`debut` <= '$debut' AND '$debut' <=`fin`) OR (`debut`< '$fin'AND '$fin' <`fin`)";
                     $query_compte = mysqli_query($bd,$requete_compte);
                     $resultat_compte = mysqli_fetch_all($query_compte);
 
-                if ( $resultat_compte[0][0] < 4 ) {
+                    var_dump( $requete_compte);
+                if ( $resultat_compte[0][0] <= 4 ) {
+                    echo "1";
                     if ( ($resultat_compte[0][0] + $type) > 4 ){
                         $_SESSION['erreur_resa'] = "Il n'y a plus de place à cette date ";
-                        header('location: ../../reservation.php');
+                        //header('location: ../../reservation.php');
                     }
                     else {
                         insertion($bd,$debut,$fin,$type,$empla,$id_utilisateur,$option_1,$option_2,$option_3);
-                        header('location: ../../planning.php');
+                        //header('location: ../../planning.php');
 
                     }
                    
                 }
                 else {
                     $_SESSION['erreur_resa'] = "Il n'y a plus de place à cette date ";
-                    header('location: ../../reservation.php');
+                    //header('location: ../../reservation.php');
                 }
 
             }
