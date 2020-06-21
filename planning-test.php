@@ -7,32 +7,64 @@
 </head>
 <body>
 
-<?php $monday_week = strtotime('Monday this week'); 
+
+
+
+
+
+<?php 
+session_start();
+$mois = date("m");
+
+if (!isset($_SESSION['numero_mois'])) {
+    $_SESSION['numero_mois'] = intval($mois);
+}
+
+
+if (isset($_POST['next'])){
+    $_SESSION['numero_mois'] += 1;
+}
+
+if (isset($_POST['previous'])){
+    $_SESSION['numero_mois'] -= 1;
+}
+var_dump($_SESSION) ;
+
+$premier_jour_mois = mktime (0,0,0,$_SESSION['numero_mois'],1,date("Y")); 
+
+$nombre_jours_mois = cal_days_in_month ( CAL_JULIAN, $_SESSION['numero_mois'], 2020) ;
+
+
+
 
 
 
 ?>
 
-<table>
-    <thead>
-        <tr>
-            <td>Lundi</td>
-            <td>Mardi</td>
-            <td>Mercredi</td>
-            <td>Jeudi</td>
-            <td>Vendredi</td>
-            <td>Samedi</td>
-            <td>Dimanche</td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <?php for($i = 0 ; $i < 7 ; $i++) :?>
-            <td><a href='planning-test.php?jour=<?php  echo date("Y-m-d" , strtotime("+ ".$i." days",$monday_week)) ;?>' ><?php echo date("d m Y" , strtotime('+ '.$i.' days',$monday_week)) ;?></a></td>
+<?php $mois = date('Y-m-d',strtotime('+'.$_SESSION['numero_mois'].' month'));
+$mois_en_cours = mktime(0, 0, 0,($_SESSION['numero_mois'] + 1), 0, date("Y"));  
+
+?>
+
+<form action="planning-test.php" method="POST">
+    <input type="submit" value ="< récédant" name ="previous">
+
+    <?php echo "<h1>".date('F Y', $mois_en_cours)."</h1>";?>
+    <input type="submit" value ="Suivant >" name ="next">
+    
+
+</form>
+
+
+
+
+            <?php for($i = 0 ; $i < $nombre_jours_mois ; $i++) :?>
+            <div style="display: inline-block;width:5%">
+                <a href='planning-test.php?jour=<?php  echo date("Y-m-d" , strtotime("+ ".$i." days",$premier_jour_mois)) ;?>' ><?php echo date("d M " , strtotime('+ '.$i.' days',$premier_jour_mois)) ;?></a>
+            </div>
             <?php endfor ;?>
-        </tr>
-    </tbody>
-</table>
+        
+  
 
 <?php if (isset($_GET['jour'])) {
 
@@ -40,7 +72,7 @@
 
     $bd = mysqli_connect("localhost","root","","camping");
 
-    $requete ="SELECT emplacement,`type`,debut ,fin  FROM `reservations` WHERE debut = '$jour' ";
+    $requete ="SELECT emplacement,`type`,debut ,fin  FROM `reservations` WHERE  `debut` <= '$jour' AND '$jour' <=`fin` ";
     $query = mysqli_query($bd,$requete);
     $resultat = mysqli_fetch_all($query,MYSQLI_ASSOC);
 
@@ -84,7 +116,9 @@
 
     $capacite = [$capacite_plage,$capacite_pins,$capacite_maquis];
 
-}    
+} 
+
+
 ?>
 
 <table>
@@ -102,7 +136,7 @@
                 <td><?php echo "Emplacement ".$i ?></td>
                 <?php for ($lieu = 0 ; $lieu < 3 ; $lieu++) :?>
                     <?php if (!empty($resultat) && $capacite[$lieu] >= $i ) :?>
-                        <td>Reserver</td>
+                        <td style="background-color:grey">Reserver</td>
                     <?php else :?>
                         <td><a href="reservation.php">Disponible</a></td>
                     <?php endif ;?>
@@ -111,7 +145,9 @@
         <?php endfor ;?>
     </tbody>
 </table>
+
+
     
- 
+
 </body>
 </html>
