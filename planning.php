@@ -10,8 +10,10 @@
 <?php 
 session_start();
 
+require 'php/traitement/functions.php';
+
 if (!isset($_SESSION['numero_mois'])) {
-    $_SESSION['numero_mois'] = 6;
+    $_SESSION['numero_mois'] = intval(date("m"));
 }
 
 
@@ -24,26 +26,7 @@ if (isset($_POST['previous'])){
 }
 
 
-function getAll($year){
-    $r = array();
-    $date = strtotime($year."-01-01");
-
-    while (date('Y',$date) <= $year){
-    $y = date('Y',$date);
-    $m = date('n',$date);
-    $d = date('j',$date);
-    $w = str_replace('0','7',date('w',$date));
-
-
-    $r[$y][$m][$d] = $w;
-    
-    $date = strtotime(date('Y-m-d',$date).' +1 DAY');
-    }
-
-    return $r;
- }
 $mois = date("m");
-
 
 
 $premier_jour_mois = mktime (0,0,0,$_SESSION['numero_mois'],1,date("Y")); 
@@ -69,12 +52,11 @@ $jour = $_GET['jour'];
 
 $bd = mysqli_connect("localhost","root","","camping");
 
-$requete ="SELECT emplacement,`type`,debut ,fin  FROM `reservations` WHERE  `debut` <= '$jour' AND '$jour' <=`fin` ";
+$requete ="SELECT emplacement,`type`,debut ,fin  FROM `reservations` WHERE  `debut` <= '$jour' AND '$jour' <`fin` ";
 $query = mysqli_query($bd,$requete);
 $resultat = mysqli_fetch_all($query,MYSQLI_ASSOC);
 
-
-
+var_dump($requete);
 $capacite_plage = 0;
 $capacite_pins = 0;
 $capacite_maquis = 0;
@@ -88,7 +70,6 @@ foreach($resultat as $cles){
             $capacite_plage += 2;
         }
     }
-
 
     if ($cles['emplacement'] == "Le Maquis"){
         if ($cles['type'] == '1' ) {
@@ -108,7 +89,6 @@ foreach($resultat as $cles){
         }
     }
 
-    
 }
 
 $capacite = [$capacite_plage,$capacite_pins,$capacite_maquis];
@@ -123,12 +103,7 @@ $year = date('Y');
 
 $dates = getAll($year);
 
-
-
-
 ?>
-
-
 
     <?php $dates = current($dates);?>
     
@@ -156,11 +131,9 @@ $dates = getAll($year);
                                 <td colspan="<?php echo $w-1 ;?>"></td>
                             <?php endif; ?>
                             
-                            
-                           
+
                             <td ><a href='planning.php?jour=<?php  echo date("Y-m-d" , strtotime("+ ".( $d - 1 ). " days",$premier_jour_mois)) ;?>' ><?php echo $d; ?></a></td>
-                           
-                           
+ 
                             
                         <?php if ( $w == 7) :?> 
                         </tr>
@@ -176,6 +149,7 @@ $dates = getAll($year);
        
         <?php endforeach ;?>
 
+<?php if (isset($_GET['jour'])) :?>
         <table>
     <thead>
         <tr>
@@ -193,12 +167,17 @@ $dates = getAll($year);
                     <?php if (!empty($resultat) && $capacite[$lieu] >= $i ) :?>
                         <td style="background-color:grey">Reserver</td>
                     <?php else :?>
-                        <td><a href="reservation.php">Disponible</a></td>
+                        <?php if (isset($jour)) :?>
+                        
+                            <td><a href="reservation-form.php?emplacement=<?= $i ?>&lieu=<?= $lieu ?>&jour=<?= $jour ?>">Disponible</a></td>
+                        
+                        <?php endif ;?>
                     <?php endif ;?>
                 <?php endfor;?>
             </tr>
         <?php endfor ;?>
     </tbody>
 </table>
+<?php endif ;?>
 
 
