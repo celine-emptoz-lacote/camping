@@ -35,12 +35,13 @@ if(isset($_POST['validate'])){
    
     if(!empty($lieu)&& !empty($type) && !empty($debut) && !empty($fin)){
         
-        if(!empty($_POST['option_choice'])){
+        if(isset($_POST['option_choice'])){
 
             foreach($_POST['option_choice'] as $option_selected){
                 if($option_selected == "borne"){
                     $option_1="borne";
                 }
+                
                 if($option_selected == "disco"){
                     $option_2="disco";
                 }
@@ -62,7 +63,7 @@ if(isset($_POST['validate'])){
             $req_insert="INSERT INTO `reservations`( `debut`, `fin`, `type`,  `emplacement`, `id_utilisateur`, `option_1`, `option_2`, `option_3`) 
             VALUES ('$debut','$fin',$type,'$lieu',$id_session,'$option_1','$option_2','$option_3')";
             
-            var_dump($req_insert);
+           
                    
             mysqli_query($db,$req_insert);
 
@@ -78,7 +79,9 @@ if(isset($_POST['validate'])){
                     || ($date_event[$i]['debut']<= $fin 
                     && $fin <= $date_event[$i]['fin'])){
                         
-                            
+                    if(($date_event[$i]['type']+$count_places[0][0]) > 4){
+                        $error= "Désolée nous sommes complet. Veuillez réserver à une autre date";
+                    }       
                     if($count_places[0][0] >= 4){
                   
                         $error= "Désolée nous sommes complet. Veuillez réserver à une autre date";
@@ -89,7 +92,7 @@ if(isset($_POST['validate'])){
                          $req_insert="INSERT INTO `reservations`( `debut`, `fin`, `type`,  `emplacement`, `id_utilisateur`, `option_1`, `option_2`, `option_3`) 
                           VALUES ('$debut','$fin',$type,'$lieu',$id_session,'$option_1','$option_2','$option_3')";
                         
-                               
+                          echo"ça marche!!!";     
                          mysqli_query($db,$req_insert);
                         
                                 

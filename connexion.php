@@ -28,8 +28,8 @@ if(isset($_POST["valider"])){
                 $id_users = mysqli_fetch_assoc($query_id);
                 $_SESSION["login"]= $login;
                 $_SESSION["id"]=$id_users['id'];
-                $_SESSION["admin"];
-                header("Location: espace-administrateur.php");
+                $_SESSION["admin"]="admin";
+                header("Location: espace-admin.php");
 
             }
             else

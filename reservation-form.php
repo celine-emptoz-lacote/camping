@@ -89,7 +89,7 @@ if(isset($_POST['validate'])){
                          $req_insert="INSERT INTO `reservations`( `debut`, `fin`, `type`,  `emplacement`, `id_utilisateur`, `option_1`, `option_2`, `option_3`) 
                           VALUES ('$debut','$fin',$type,'$lieu',$id_session,'$option_1','$option_2','$option_3')";
                         
-                               
+                        echo "ça marche" ;  
                          mysqli_query($db,$req_insert);
                         
                                 
