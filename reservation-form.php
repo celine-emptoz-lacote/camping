@@ -8,6 +8,7 @@ $error=null;
 $db= mysqli_connect("localhost","root","","camping");
 
 $id_session=intval($_SESSION["id"]);
+
 $option_1=null;
 $option_2=null;
 $option_3=null;
@@ -28,10 +29,10 @@ if(isset($_POST['validate'])){
 
     // COMPTER LES EMPLACEMENTS
     $req_count_places="SELECT SUM(`type`) FROM reservations WHERE `emplacement`='$lieu' AND (`debut` <= '$debut' AND '$debut' <=`fin`) OR (`debut`< '$fin'AND '$fin' <`fin`)";
-    var_dump($req_count_places);
+    
     $query_count=mysqli_query($db, $req_count_places);
     $count_places=mysqli_fetch_all($query_count);
-    var_dump($count_places);
+    
    
     
   
@@ -56,17 +57,17 @@ if(isset($_POST['validate'])){
 
     
         if($debut<$date){
-                 echo $error="Vous ne pouvez pas réserver à une date antérieure"; }
+                $error="Vous ne pouvez pas réserver à une date antérieure"; }
 
         if($debut>$fin){
-                 echo $error="Créneau invalide";}
+                $error="Créneau invalide";}
 
         if(empty($date_event)){
             
             $req_insert="INSERT INTO `reservations`( `debut`, `fin`, `type`,  `emplacement`, `id_utilisateur`, `option_1`, `option_2`, `option_3`) 
             VALUES ('$debut','$fin',$type,'$lieu',$id_session,'$option_1','$option_2','$option_3')";
             
-            var_dump($req_insert);
+            
                    
             mysqli_query($db,$req_insert);
 
@@ -93,7 +94,7 @@ if(isset($_POST['validate'])){
                          $req_insert="INSERT INTO `reservations`( `debut`, `fin`, `type`,  `emplacement`, `id_utilisateur`, `option_1`, `option_2`, `option_3`) 
                           VALUES ('$debut','$fin',$type,'$lieu',$id_session,'$option_1','$option_2','$option_3')";
                         
-                        echo "ça marche" ;  
+                    
                          mysqli_query($db,$req_insert);
                         
                                 
@@ -103,7 +104,7 @@ if(isset($_POST['validate'])){
                             
                            
                 }
-          
+            }    
 
 
 
@@ -114,10 +115,13 @@ if(isset($_POST['validate'])){
 
 
     }
+    else{
+        $error="Veuillez remplir tous les champs";
+    }
                 
 }
  
-}
+
 
 
 
@@ -130,44 +134,74 @@ if(isset($_POST['validate'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
-    <main>
-    <p><?= $error ?></p>
-<form action="" method="post">
+    <main class="main_reservation_form">
+        <section class="container_reservation">
+            <div class="div_booking">
+                <h1>Formulaire</h1>
+                <?php if($error):?>
+                <p class="error"><?= $error ?></p>
+                <?php endif ?>
+                <form action="" method="post">
+    
+                   <select name="place_choice" id="place">
+                        <option value="">Choissisez votre emplacement</option>
+                        <option value="La plage">La PLAGE</option>
+                        <option value="Les pins">Les PINS</option>
+                        <option value="Le Maquis">Le MAQUIS</option>
+                    </select>
+                    
+                    <select name="type" id="type">
+                        <option value="">Type:</option>
+                        <option value="1">Tente</option>
+                        <option value="2">Camping-Car</option> 
+                    </select>
+                    
+                    <div class="dates">
+                        <div class="date_form">
+                            <label for="debut">Date de début</label>
+                            <input type="date" name="date_debut" id="debut">
+                        </div>
+                        <div class="date_form">
+                            <label for="fin">Date de fin</label>
+                            <input type="date" name="date_fin" id="fin">
+                        </div>
+                    </div>
+                    
+                        <div class="option_choice">
+                            <label for="options">Choissisez vos options:</label>
+                        </div>
+                        <div class="all_options">
+                            <div>
+                                <label for="borne">Borne électrique 2€</label>
+                                <input type=checkbox name="option_choice[]" id="borne" value="borne">
+                            </div>
+                            <div>
+                                <label for="disco">Disco-club 17€</label>
+                                <input type=checkbox id="disco" name="option_choice[]" value="disco">
+                            </div>
+                            <div>
+                                <label for="pack">Pack activité 30€</label>
+                                <input type=checkbox id="pack" name="option_choice[]" value="pack">
+                            </div>
+                            
+                        </div>
+                    
+                
+                    <button type="submit" name="validate">Valider</button>
 
-    <label for="place">Lieu</label>
-    <select name="place_choice" id="place">
-        <option value="">Choissisez votre emplacement</option>
-        <option value="La plage">La PLAGE</option>
-        <option value="Les pins">Les PINS</option>
-        <option value="Le Maquis">Le MAQUIS</option>
-    </select>
 
-    <label for="type">Type</label>
-    <select name="type" id="type">
-        <option value="">Type:</option>
-        <option value="1">Tente</option>
-        <option value="2">Camping-Car</option> 
-    </select>
+                </form>
 
-    <label for="debut">Date de début</label>
-    <input type="date" name="date_debut" id="debut">
-    <label for="fin">Date de fin</label>
-    <input type="date" name="date_fin" id="fin">
-    <label for="options">Options</label>
-    <label for="borne">Borne électrique 2€</label>
-    <input type=checkbox name="option_choice[]" id="borne" value="borne">
-    <label for="disco">Disco-club: Les girelles dansantes 17€</label>
-    <input type=checkbox id="disco" name="option_choice[]" value="disco">
-    <label for="pack">Pack activité 30€</label>
-    <input type=checkbox id="pack" name="option_choice[]" value="pack">
- 
-    <button type="submit" name="validate">Valider</button>
-
-
-</form>
+            </div>
+            <div class="div_text">
+                <h1>Réserver maintenant</h1>
+                <p>Vérifiez nos disponiblité et n'attendez pas pour réserver votre séjour au camping Les Happy Sardines !</p>
+            </div>
+        </section>
     </main>
     
 </body>

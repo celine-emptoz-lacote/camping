@@ -5,7 +5,7 @@ $error=null;
 $req_connect= "SELECT * FROM `utilisateurs` " ;
 $query_connect = mysqli_query($db,$req_connect);
 $data_users = mysqli_fetch_all($query_connect);
-var_dump($data_users);
+
 if(isset($_POST["valider"])){
     $login=htmlentities($_POST["login"]);
     $password= htmlentities($_POST["password"]);
@@ -66,7 +66,7 @@ if(isset($_POST["valider"])){
     <title>Connectez vous</title>
 </head>
 <body>
-    <!--<header><?php include("header.php");?></header>-->
+    <!--<?php include("header.php");?></header>-->
     
     <main class="main_connect">
 
@@ -90,8 +90,6 @@ if(isset($_POST["valider"])){
 
                 <h1>Se connecter</h1>
 
-            
-
                 <form action="" method="POST">
                     
                     <input name="login" type="text" placeholder="Votre login" id="login">
@@ -102,10 +100,10 @@ if(isset($_POST["valider"])){
                     <button class="button_connect" type="submit" name="valider">Valider</button>
                 </form>
             </div>
-            <!--<div class=box2>
+            <div class=box2>
                 <h1>Pas de compte?</h1>
                 <a class="button_box2" href="inscription.php">S'incrire</a>
-            </div>-->
+            </div>
         </div>
     </main>
     <!--<footer><?php include("footer.php");?></footer>-->
