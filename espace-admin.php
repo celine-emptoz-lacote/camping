@@ -53,7 +53,7 @@ $req_prices="SELECT * FROM reservations
 
 $query_prices=mysqli_query($db, $req_prices);
 $prices=mysqli_fetch_all($query_prices, MYSQLI_ASSOC);
-var_dump($prices)
+
 
 
 ?>
@@ -63,19 +63,22 @@ var_dump($prices)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="font/fontello/css/fontello.css">
     <title>Espace-administrateur</title>
 </head>
 <body>
-<main>
+<main class="main_admin">
     <h1>Les tarifs</h1>
     <section>
         <form action="" method="POST">
         <?php if(!isset($_GET['id'])):?>
-            <table>
+            <table class="table_prices">
                 <thead>
                 <tr>
                 <th>NOM</th>
                 <th>PRIX</th>
+                <th>MODIFIER</th>
                 
                 
                 </tr>
@@ -88,15 +91,15 @@ var_dump($prices)
                     $query_prices=mysqli_query($db, $req_prices);
                     $prices=mysqli_fetch_all($query_prices, MYSQLI_ASSOC);?>
                     <tr>
-                        <td><?= $prices[0]['nom']?></td>
+                        <td class="option_name"><?= $prices[0]['nom']?></td>
 
                         <?php if(!isset($_GET['id'])):?>
 
-                        <td><input type="number" value= <?= $prices[0]['prix']?> name="current_price<?php echo $i?>" disabled> </td>
-                        <td><a href="espace-admin.php?id=<?php echo $i?>">Modifier</a></td>
+                        <td> <?=$prices[0]['prix']?>€</td>
+                        <td><a href="espace-admin.php?id=<?php echo $i?>" class="link_to"></a></td>
                     
                         <?php endif ?>
-                    
+                        
                     </tr>
 
                 <?php }?>
@@ -107,43 +110,21 @@ var_dump($prices)
             <?php endif ?>
 
             <?php if(isset($_GET['id'])):?>
+            
+            <div class="change_price">
+                <p>Veuillez entrer le nouveau prix pour l'option <?= $prices[0]['nom']?>:</p>
+                <input type="number" name="new_price" value= <?= $prices[0]['prix']?>>
+                <button type="submit" name="submit_price" class="submit_price">Valider</button>
+            </div>
 
-            <table>
-                <thead>   
-                    <tr>
-                        <th>NOM</th>
-                        <th>PRIX</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php 
-                    $id=$_GET['id'];
-                    $req_prices="SELECT * FROM `tarifs` WHERE id=$id";
-                    $query_prices=mysqli_query($db, $req_prices);
-                    $prices=mysqli_fetch_all($query_prices, MYSQLI_ASSOC);
-                   ?>
-                    <tr>
-                        <td><?= $prices[0]['nom']?></td>
-                        <td>
-                            <input type="number" name="new_price" value= <?= $prices[0]['prix']?>>
-                            
-                        </td>
-                    </tr>
-
-                </tbody>
-            </table>
             <?php endif ?>
 
-            <?php if(isset($_GET['id'])):?>
-                    <button type="submit" name="submit_price">Valider</button>
-                <?php endif ?>
-
-
+            
         </form>
     </section>
     <h1>Les réservations</h1>
     <section>
-        <table>
+        <table class="table_booking">
             <thead>
                 <tr>
                     <th>Date de début</th>
@@ -153,6 +134,8 @@ var_dump($prices)
                     <th>Option_1</th>
                     <th>Option_2</th>
                     <th>Option_3</th>
+                    <th>Supprimer</th>
+                    <th>Modifier</th>
                 </tr>
             </thead>
             <tbody>
@@ -173,7 +156,8 @@ var_dump($prices)
                         <td><?= $data_booking[$i]['option_1']?></td>
                         <td><?= $data_booking[$i]['option_2']?></td>
                         <td><?= $data_booking[$i]['option_3']?></td>
-                        <td><a href="espace-admin.php?id_booking=<?=$data_booking[$i]['id']?>">Supprimer</a></td>
+                        <td><a href="espace-admin.php?id_booking=<?=$data_booking[$i]['id']?>" class="delete"></a></td>
+                        <td><a href="change-reservation.php?id_booking=<?=$data_booking[$i]['id']?>" class="link_to"></a></td>
                         
                         
                     </tr>

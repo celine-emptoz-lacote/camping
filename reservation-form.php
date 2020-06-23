@@ -8,6 +8,9 @@ $error=null;
 $db= mysqli_connect("localhost","root","","camping");
 
 $id_session=intval($_SESSION["id"]);
+$option_1=null;
+$option_2=null;
+$option_3=null;
 
 
 if(isset($_POST['validate'])){
@@ -25,9 +28,10 @@ if(isset($_POST['validate'])){
 
     // COMPTER LES EMPLACEMENTS
     $req_count_places="SELECT SUM(`type`) FROM reservations WHERE `emplacement`='$lieu' AND (`debut` <= '$debut' AND '$debut' <=`fin`) OR (`debut`< '$fin'AND '$fin' <`fin`)";
-    
+    var_dump($req_count_places);
     $query_count=mysqli_query($db, $req_count_places);
     $count_places=mysqli_fetch_all($query_count);
+    var_dump($count_places);
    
     
   
