@@ -689,6 +689,10 @@ footer{
    width: 50%;
 }
 
+.section_profil_reservations div p{
+    font-size: 14px;
+ }
+
 @media screen and (max-width: 700px) {
     .section_form_profil {
         display: block;  
