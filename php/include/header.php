@@ -1,4 +1,4 @@
-<?php $page = $_SERVER['PHP_SELF'];?>
+<?php $page = $_SERVER['PHP_SELF']; ?>
 
 <div class="header_menu">
 
@@ -35,7 +35,7 @@
     </nav>  
 
 </div>
-<?php if($page == '/camping/index.php'):?>
+<?php if($page == '/camping/index.php'):?> 
 <div class="img_index">
     <h1>Emplacement camping pour Tente et Camping-Car</h1>
 

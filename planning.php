@@ -1,9 +1,11 @@
+<?php  session_start(); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planning</title>
+    <link rel="stylesheet" href="font/fontello/css/fontello.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,7 +13,6 @@
     <main class="main_planning"> 
 
     <?php 
-    session_start();
 
     require 'php/traitement/functions.php';
 
@@ -124,7 +125,7 @@
                                     <?php endif; ?>
                                     
 
-                                    <td ><a href='planning.php?jour=<?php  echo date("Y-m-d" , strtotime("+ ".( $d - 1 ). " days",$premier_jour_mois)) ;?>' ><?php echo $d; ?></a></td>
+                                    <td ><a class="lien-planning" href='planning.php?jour=<?php  echo date("Y-m-d" , strtotime("+ ".( $d - 1 ). " days",$premier_jour_mois)) ;?>' ><?php echo $d; ?></a></td>
         
                                     
                                 <?php if ( $w == 7) :?> 
@@ -172,7 +173,7 @@
                                 <?php else :?>
                                     <?php if (isset($jour)) :?>
                                     
-                                        <td class="dispo"><a href="reservation-form.php?emplacement=<?= $i ?>&lieu=<?= $lieu ?>&jour=<?= $jour ?>">Disponible</a></td>
+                                        <td class="dispo"><a class="lien_resa"href="reservation-form.php?emplacement=<?= $i ?>&lieu=<?= $lieu ?>&jour=<?= $jour ?>">Disponible</a></td>
                                     
                                     <?php endif ;?>
                                 <?php endif ;?>

@@ -850,10 +850,16 @@ footer{
 /*** PLANNING ***/
 .main_planning {
     background-color: whitesmoke;
+    padding-bottom: 2%;
 }
 .planning {
     display: flex;
     text-align: center;
+    padding: 3% 0;
+}
+
+.lien-planning {
+    font-weight: bold;
 }
 
 .form_planning {
@@ -952,12 +958,19 @@ footer{
     font-weight: bold;
 }
 
+.lien_resa {
+    color: black;
+}
+
+.lien_resa:hover {
+    color: white;
+}
 .dispo {
-    background-color: #DFFED3;
+    background-color: #66ff66;
 }
 
 .nondispo {
-    background-color: #E9B6AF;
+    background-color: red;
 }
 
 .section_planning_reservation {
@@ -977,7 +990,7 @@ footer{
 .section_planning_reservation h2 , .main_profil h2 {
  color: #0083b0;
 }
-.section_planning_reservation h2:before, .main_profil h2::before, .main_profil h2:after, .section_planning_reservation h2:after { 
+ .main_profil h2::before, .main_profil h2:after { 
     content:''; display:inline-block; 
     vertical-align: middle; 
     width: 10rem; 
@@ -1037,7 +1050,7 @@ footer{
 }
 
 .index_div_choix div {
-    width: 20%;
+    width: 24%;
     margin: 1%;
     padding: 2%;
     border: 1px solid #0083b0;
@@ -1052,13 +1065,14 @@ footer{
     background: #0083b0;
     border: none;
     width: 70%;
+    margin: auto;
 }
 
 .option_flex {
     display: flex;
     justify-content: space-between;
     width: 60%;
-    margin: auto;
+    margin: 4% auto;
 }
 
 .option_flex div{

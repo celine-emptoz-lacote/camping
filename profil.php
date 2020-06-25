@@ -19,6 +19,7 @@ if (!isset($_SESSION['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon profil</title>
+    <link rel="stylesheet" href="font/fontello/css/fontello.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
