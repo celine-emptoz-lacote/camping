@@ -33,7 +33,7 @@
         </form>
 
         <section class="section_inscription">
-            <h1 class="titre_inscription">Vous avez dejas un compte ?</h1>
+            <h1 class="titre_inscription">Vous avez déjà un compte ?</h1>
             <p>Connectez-vous pour gérer vos réservations, débloquer des offres exclusives et bien plus encore</p>
             <a class="connexion" href="connexion.php">Se connecter</a>
             <div>
