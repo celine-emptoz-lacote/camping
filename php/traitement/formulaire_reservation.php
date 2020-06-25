@@ -33,7 +33,7 @@ if (isset($_POST['submit'])) {
         $_SESSION['erreur_type'] = "Ce champs ne peut etre vide";
     }
     else {
-        if ($_POST['type'] == 'tente') {
+        if ($_POST['type'] == '1') {
             $type = 1; 
         }
         else {

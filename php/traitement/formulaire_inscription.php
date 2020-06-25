@@ -19,16 +19,21 @@ if (isset($_POST['submit'])) {
         }
     }
     else {
-        $_SESSION['erreur_log'] = "Ce champs ne peux pas etre vide"; 
+        $_SESSION['erreur_log'] = "Le login ne peux pas etre vide"; 
     }
 
-
-    if ($_POST['password'] == $_POST['password2']) {
-        $passHash = password_hash($_POST['password'],PASSWORD_DEFAULT);
+    if (!empty($_POST['password']) && !empty($_POST['password2'])) {
+        if ($_POST['password'] == $_POST['password2']) {
+            $passHash = password_hash($_POST['password'],PASSWORD_DEFAULT);
+        }
+        else {
+            $_SESSION['erreur_pass'] = "Les mots de passe ne correspondent pas"; 
+        }
     }
     else {
-        $_SESSION['erreur_pass'] = "Les mots de passe ne correspondent pas"; 
+        $_SESSION['erreur_pass'] = "Les champs mots de passe ne peuvent etre vide";
     }
+   
 
 
     if (!isset( $_SESSION['erreur_log']) && !isset($_SESSION['erreur_pass']) ) {
@@ -41,7 +46,6 @@ if (isset($_POST['submit'])) {
       
     }
     else {
-        echo ' erreur';
         unset($_SESSION);
         header('location: ../../inscription.php');
     }

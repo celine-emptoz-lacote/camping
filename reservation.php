@@ -33,8 +33,8 @@
     <?php if(isset($_SESSION['erreur_emplacement'])) { echo "<p>".$_SESSION['erreur_emplacement']."</p>"; } ?>
     <select name="type" id="type">
         <option value="">Choissir un type </option>
-        <option value="tente">Tente</option>
-        <option value="camping cars">Camping cars</option>
+        <option value="1">Tente</option>
+        <option value="2">Camping cars</option>
     </select>
 
     <p>Options :</p>

@@ -1,122 +1,178 @@
 <?php
 session_start();
-if(!isset($_SESSION['id'])){
-    header('Location:connexion.php?access_denied');
-}
-$id_session=$_SESSION["id"];
 
 date_default_timezone_set('Europe/Paris');
-$date=date('Y-m-d H:i:s');
-$what_day= date('w', strtotime($date));
-
-$db= mysqli_connect("localhost","root","","reservationsalles");
+$date=date('Y-m-d');
 $error=null;
 
-if(isset($_POST["send"])){
-     $titre= htmlspecialchars($_POST["titre"]);
-     $description= htmlspecialchars($_POST["description"]);
-     $debut= htmlspecialchars($_POST["date_debut"])." ". htmlspecialchars($_POST["heure_debut"]);
-     
-     $fin= htmlspecialchars($_POST["date_debut"])." ". htmlspecialchars($_POST["heure_fin"]) ;
-    
-    
-     
-    
-    if(!empty($titre) && !empty($description) && !empty($debut) && 
-     !empty($fin) )
-    {
-        $req_event_datetime= "SELECT COUNT(*) FROM `reservations`
-         WHERE (`debut` <= '$debut' AND '$debut' <=`fin`) OR (`debut`< '$fin'AND '$fin' <`fin`)";
-        $query_datetime=mysqli_query($db, $req_event_datetime);
-        $datetime_event=mysqli_fetch_all($query_datetime);
-        $what_day_debut= date('w', strtotime($debut));
-        $what_day_fin= date('w', strtotime($fin));
+$db= mysqli_connect("localhost","root","","camping");
 
-        if($datetime_event[0][0] != 0){
-            $error= "Vous ne pouvez pas réserver à cette date";
+$id_session=intval($_SESSION["id"]);
+$option_1=null;
+$option_2=null;
+$option_3=null;
+
+
+if(isset($_POST['validate'])){
+
+    $debut= htmlspecialchars($_POST["date_debut"]);
+    $fin= htmlspecialchars($_POST["date_fin"]) ;
+    $lieu=htmlspecialchars($_POST["place_choice"]);
+    $type=htmlspecialchars($_POST["type"]);
+
+    //RECUPERATION DATES
+    $req_event_date= "SELECT * FROM `reservations` WHERE `emplacement`='$lieu' AND (`debut` <= '$debut' AND '$debut' <=`fin`) OR (`debut`< '$fin'AND '$fin' <`fin`)
+    ";
+    $query=mysqli_query($db, $req_event_date);
+    $date_event=mysqli_fetch_all($query, MYSQLI_ASSOC);
+
+    // COMPTER LES EMPLACEMENTS
+    $req_count_places="SELECT SUM(`type`) FROM reservations WHERE `emplacement`='$lieu' AND (`debut` <= '$debut' AND '$debut' <=`fin`) OR (`debut`< '$fin'AND '$fin' <`fin`)";
+    
+    $query_count=mysqli_query($db, $req_count_places);
+    $count_places=mysqli_fetch_all($query_count);
+   
+    
+  
+
+   
+    if(!empty($lieu)&& !empty($type) && !empty($debut) && !empty($fin)){
+        
+        if(!empty($_POST['option_choice'])){
+
+            foreach($_POST['option_choice'] as $option_selected){
+                if($option_selected == "borne"){
+                    $option_1="borne";
+                }
+                if($option_selected == "disco"){
+                    $option_2="disco";
+                }
+                if($option_selected == "pack"){
+                    $option_3="pack";
+                }
+            }  
         }
-        elseif($debut < $date){
-            $error= "Vous ne pouvez pas réserver à une date antérieure";
+
+    
+        if($debut<$date){
+                 echo $error="Vous ne pouvez pas réserver à une date antérieure"; }
+
+        if($debut>$fin){
+                 echo $error="Créneau invalide";}
+
+        if(empty($date_event)){
+            
+            $req_insert="INSERT INTO `reservations`( `debut`, `fin`, `type`,  `emplacement`, `id_utilisateur`, `option_1`, `option_2`, `option_3`) 
+            VALUES ('$debut','$fin',$type,'$lieu',$id_session,'$option_1','$option_2','$option_3')";
+            
+            var_dump($req_insert);
+                   
+            mysqli_query($db,$req_insert);
+
         }
-        elseif($what_day_debut == 6 || $what_day_debut== 0 ){
-            $error= "Vous ne pouvez pas réserver pendant le week-end";
+        if(!empty($date_event)){
+
+
+            for( $i=0;  $i<count($date_event); $i++){
+                 
+
+                if(($date_event[$i]['debut']<= $debut
+                    && $debut <= $date_event[$i]['fin']) 
+                    || ($date_event[$i]['debut']<= $fin 
+                    && $fin <= $date_event[$i]['fin'])){
+                        
+                            
+                    if($count_places[0][0] >= 4){
+                  
+                        $error= "Désolée nous sommes complet. Veuillez réserver à une autre date";
+                                    
+                    }
+                    else
+                    {
+                         $req_insert="INSERT INTO `reservations`( `debut`, `fin`, `type`,  `emplacement`, `id_utilisateur`, `option_1`, `option_2`, `option_3`) 
+                          VALUES ('$debut','$fin',$type,'$lieu',$id_session,'$option_1','$option_2','$option_3')";
+                        
+                        echo "ça marche" ;  
+                         mysqli_query($db,$req_insert);
+                        
+                                
+                       
+                    }
+    
+                            
+                           
+                }
+          
+
+
+
+
         }
-        elseif($_POST['heure_debut']== $_POST['heure_fin']){
-            $error="Veuillez renseigner une heure de fin valide";
-        }
-        else{
-            $req="INSERT INTO `reservations`( `titre`, `description`, `debut`, `fin`, `id_utilisateurs`) VALUES ('$titre','$description','$debut','$fin','$id_session')";
-                 mysqli_query($db, $req);
-                 header("Location:planning.php");
-        }
-     }
-     else{
-         $error="Veuillez remplir tous les champs";
-     }
-     
-              
-}     
-       
-      
-           
+   
+
+
+
+    }
+                
+}
+ 
+}
+
+
+
+   
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Formulaire de réservation</title>
+    <title>Document</title>
 </head>
 <body>
-    <header><?php include("header.php");?></header>
+    <main>
+    <p><?= $error ?></p>
+<form action="" method="post">
 
-    <main class="main_booking">
+    <label for="place">Lieu</label>
+    <select name="place_choice" id="place" <?php if (isset($_GET['lieu'])) {  echo "disabled ";} ?>>
+        <option value="">Choissisez votre emplacement</option>
+        <option value="La plage"  <?php if (isset($_GET['lieu'])) { if ($_GET['lieu'] == "0" ){ echo "selected ";}} ?> >La PLAGE</option>
+        <option value="Les pins"  <?php if (isset($_GET['lieu'])) { if ($_GET['lieu'] == "1") { echo "selected " ;}} ?>>Les PINS</option>
+        <option value="Le Maquis" <?php if (isset($_GET['lieu'])) { if ($_GET['lieu'] == "2") { echo "selected ";}} ?>>Le MAQUIS</option>
+        
+    </select>
 
-        <h1>Formulaire de réservation</h1>
+    <label for="type">Type</label>
+    <select name="type" id="type">
+        <option value="">Type:</option>
+        <option value="1">Tente</option>
+        <option value="2">Camping Car</option> 
+    </select>
 
-        <?php if($error):?>
-        <div class=error>
-            
-            <?= $error?>
-           
-        </div>
-        <?php endif?>
+    <label for="debut">Date de début</label>
+    <input type="date" name="date_debut" id="debut" value="<?php if(isset($_GET['jour'])) { echo $_GET['jour']; } ?>" <?php if(isset($_GET['jour'])) { echo " disabled"; } ?>>
+    <label for="fin">Date de fin</label>
+    <input type="date" name="date_fin" id="fin">
+    <label for="options">Options</label>
+    <label for="borne">Borne électrique 2€</label>
+    <input type=checkbox name="option_choice[]" id="borne" value="borne">
+    <label for="disco">Disco-club: Les girelles dansantes 17€</label>
+    <input type=checkbox id="disco" name="option_choice[]" value="disco">
+    <label for="pack">Pack activité 30€</label>
+    <input type=checkbox id="pack" name="option_choice[]" value="pack">
+ 
+    <button type="submit" name="validate">Valider</button>
 
-        <section class=booking_form>
-            <form action="" method="post">
-                
-                    <div class="title">
-                        <input type="text" name="titre" placeholder="Titre de l'événement">
-                    </div>
-                    
-                <div class="big_container">
-                    <div class="datetime">
-                        <div class="date">
-                            <label for="date_debut">Date de début</label>
-                            <input type="date" name="date_debut" id="debut" value=<?=$date?>>
-                        </div> 
-                                
-                                <div class="label">
-                                    <label>Heure de début</label>
-                                    <input type="time" name="heure_debut" id="heure_debut" value="09:00" min="09:00" max="19:00" step="3600">
-                                </div>
 
-                                <div class="label">
-                                    <label>Heure de fin</label>
-                                    <input type="time" name="heure_fin" id="heure_fin" value="19:00" min="09:00" max="19:00" step="3600">
-                                </div>
-                    </div> 
-                       
+</form>
 
-                    <div class="description">
-                            <textarea name="description" placeholder="Description de l'événement"></textarea>
-                    </div>
-               </div> 
-                <button type="submit" name="send">Valider</button>
-            </form>
+   
+        <a href="planning.php"> Retour</a>
+   
     </main>
-    <footer><?php include("footer.php");?></footer>
     
 </body>
 </html>
