@@ -605,3 +605,540 @@ footer{
   opacity: 0.8;
 
 }
+/*** PROFIL ***/
+
+.main_profil h2 {
+    margin: 3% auto;
+    text-align: center;
+}
+.titre_profil {
+    text-align: center;
+}
+
+.section_form_profil {
+    display: flex;
+    align-items: stretch;  
+}
+.section_form_profil form , .image_profil {
+    width: 50%;
+}
+
+.section_form_profil div img {
+    width: 100%;
+}
+
+.section_form_profil div img , .section_form_profil form{
+    height: 67vh;
+}
+.section_form_profil form {
+    
+    background: linear-gradient(to right, #00b4db, #0083b0);
+}
+
+.section_form_profil form label ,  .section_form_profil form input {
+    display: block;
+    width: 50%;
+    margin: auto;
+    height: 4vh;
+}
+
+.section_form_profil form input[type="submit"] {
+    width: 30%;
+    height: 5vh;
+    border: 1px solid #a5a0a0;
+    border-radius: 20px;
+    outline: 0;
+}
+
+.section_form_profil form input {
+    margin-bottom: 2%;
+    border: none;
+   
+}
+
+.section_profil_reservations {
+    width: 80%;
+    margin: 1% auto;
+    padding: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    background-color: whitesmoke;
+}
+
+.section_profil_reservations div{
+   width: 50%;
+}
+
+@media screen and (max-width: 700px) {
+    .section_form_profil {
+        display: block;  
+    }
+    .section_form_profil div img {
+        display: none;
+    } 
+    .section_form_profil form {
+        width: 100%;
+    }
+    .section_profil_reservations {
+        width: 100%;
+    }
+    .section_profil_reservations div{
+        width: 100%;
+    }
+
+     
+}
+
+.section_profil_reservations div IMG {
+    width: 10%;
+}
+
+.div_jours {
+    display: flex;
+}
+
+.div_jours div {
+    width: 50%;
+}
+
+.div_jours  p{
+    width: 100%;
+}
+.profil_tarif {
+    padding: 2%;
+    background: linear-gradient(to right, #00b4db, #0083b0);
+    border-radius: 5px;
+}
+
+.options {
+    display: flex;
+}
+
+.options div img {
+    width: 20%;
+}
+
+.section_profil_reservations p , .section_profil_reservations img {
+   vertical-align: middle;
+}
+
+/*** INSCRIPTION ***/
+.main_inscription {
+    height: 100vh;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.div_inscription {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 70%;
+    margin: auto;
+    background-color: white;
+    box-shadow: 2px 2px 8px 5px #aaa; 
+    outline: 0;
+    
+}
+
+.titre_creation_compte {
+    color: #0083b0;
+}
+
+.div_inscription form , .section_inscription {
+    width: 50%;
+   
+} 
+
+@media screen and (max-width: 500px) {
+    .div_inscription {
+       flex-direction: column;
+       width: 95%;  
+    }
+    .div_inscription form  {
+        width: 100%;
+       
+    } 
+
+    .section_inscription{
+        width: 96%;
+    }
+}
+
+.div_inscription form {
+    text-align: center;
+}
+.div_inscription form label, .div_inscription input {
+    display: block;
+}
+
+.div_inscription input {
+    width: 80%;
+    margin: 2% auto;
+    height: 4vh;
+}
+
+.div_inscription input[type="submit"] {
+    width: 50%;
+   height: 6vh;
+   margin-top: 8%;
+   background: linear-gradient(to right, #00b4db, #0083b0);
+   border-radius: 20px;
+   border: none;
+   outline: none;
+   color: white;
+}
+
+.section_inscription {
+    padding: 2%;
+    background: linear-gradient(to right, #00b4db, #0083b0);
+}
+
+.titre_inscription {
+    color: white;
+}
+
+.section_inscription p{
+    font-size: 20px;
+}
+
+.section_inscription div{
+    margin: 6% auto;
+    text-align: center;
+}
+
+.icon-facebook-squared:before { 
+    content: '\f308';
+    font-size: 30px;
+}
+.icon-instagram:before { 
+    content: '\f16d'; 
+    font-size: 30px;
+} 
+.icon-twitter-squared:before { 
+    content: '\f304'; 
+    font-size: 30px;
+}
+
+.section_inscription div a{
+    color: white;
+}
+
+.connexion {
+    display: block;
+    width: 30%;
+    padding: 3%;
+    margin: auto;
+    text-decoration: none;
+    border: 1px solid white;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    outline: none;
+}
+
+@media screen and (min-width: 500px) and (max-width: 770px) {
+    .div_inscription input[type="submit"] {
+        width: 70%;
+    }
+    .connexion {   
+        width: 50%;  
+    }
+}
+/*** PLANNING ***/
+.main_planning {
+    background-color: whitesmoke;
+}
+.planning {
+    display: flex;
+    text-align: center;
+}
+
+.form_planning {
+    width: 20%;
+    margin: 2% auto;
+}
+
+.form_planning input {
+    width: 70%;
+    height: 4vh;
+    border: none;
+    border-radius: 20px;
+    background: linear-gradient(to right, #00b4db, #0083b0);
+    outline: 0;
+}
+
+.form_planning input:hover {
+    color: white;
+}
+
+.div_planning {
+    width: 80%;
+}
+@media screen and (max-width: 700px) {
+    .planning {
+        flex-direction: column-reverse;  
+    }
+    .form_planning {
+        width: 40%;
+    }
+    .div_planning {
+        width: 100%;
+        
+    }
+}
+
+.table_planning {
+    border-collapse: collapse;
+    width: 80%;
+    margin: auto;
+ 
+}
+.table_planning td, .table_planning th , .table_planning_reservation td, .table_planning_reservation th{
+    border: 1px solid black;
+}
+
+.table_planning thead {
+    background: linear-gradient(to right, #00b4db, #0083b0);
+}
+.table_planning td {
+    background: white;
+}
+
+.table_planning thead th{
+    margin: 2%;
+    height: 10vh;
+}
+
+.table_planning td {
+    height: 8vh;
+}
+
+.section_planning_reservation {
+    margin-top: 5%;
+    text-align: center;
+}
+
+.section_planning_reservation h2 {
+    width: 70%;
+    margin: 2% auto;
+}
+
+.table_planning_reservation {
+    width: 70%;
+    margin: 5% auto;
+    border-collapse: collapse;
+}
+
+.table_planning_reservation th {
+    height: 5vh;
+    background-color: #b7b7b7;
+}
+
+ .table_planning_reservation td:first-child {
+    height: 5vh;
+    background-color: #b7b7b7;
+   
+}
+
+.table_planning_reservation thead th:first-child {
+    border: none;
+    background-color: white;
+}
+
+.table_planning_reservation td:first-child{
+    font-weight: bold;
+}
+
+.dispo {
+    background-color: #DFFED3;
+}
+
+.nondispo {
+    background-color: #E9B6AF;
+}
+
+.section_planning_reservation {
+    width: 53%;
+    margin: 3% auto;
+    background: white;
+    border: 1px solid #0083b0;
+    border-radius: 20px;
+}
+
+@media screen and (max-width: 700px) {
+    .section_planning_reservation {
+        width: 100%;
+       
+    }
+}
+.section_planning_reservation h2 , .main_profil h2 {
+ color: #0083b0;
+}
+.section_planning_reservation h2:before, .main_profil h2::before, .main_profil h2:after, .section_planning_reservation h2:after { 
+    content:''; display:inline-block; 
+    vertical-align: middle; 
+    width: 10rem; 
+    height: 1px; 
+    background: #0083b0 ;
+}
+.section_planning_reservation h2:before , .main_profil h2:before { 
+    margin-right: .3rem 
+}
+.section_planning_reservation h2:after, .main_profil h2:after { 
+    margin-left: .3rem 
+}
+
+/*** Index ***/
+
+.index_main section {
+    margin: 5% 0 0;
+}
+.index_h2 {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.index_h2:before, .index_h2:after { 
+    content:''; display:inline-block; 
+    vertical-align: middle; 
+    width: 7rem; 
+    height: 1px; 
+    background: #0083b0 ;
+}
+
+.index_h2:before { 
+    margin-right: 1rem 
+}
+.index_h2:after { 
+    margin-left: 1rem 
+}
+.emplacement {
+    display: flex;
+  
+}
+.emplacement div {
+    width: 33%;
+    padding: 2%;
+    margin: 1%;
+    background-color: whitesmoke;
+}
+
+.emplacement div img {
+    width: 100%;
+}
+
+.index_div_choix {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.index_div_choix div {
+    width: 20%;
+    margin: 1%;
+    padding: 2%;
+    border: 1px solid #0083b0;
+}
+
+.index_div_choix div img{
+    width: 25%;
+}
+
+.index_div_choix div hr{
+    height: 1%;
+    background: #0083b0;
+    border: none;
+    width: 70%;
+}
+
+.option_flex {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    margin: auto;
+}
+
+.option_flex div{
+    width: 50%;
+}
+
+.option_flex img{
+   width: 13%;
+}
+.index_options img {
+    width: 30%;
+}
+.index_options div {
+   margin: 2%;
+}
+@media screen and (max-width: 700px){
+    .index_h2:before, .index_h2:after , .main_profil h2:before , .main_profil h2:after , .section_planning_reservation h2:before, .section_planning_reservation h2:after{
+        display: none;
+    }
+    .emplacement {
+        flex-direction: column;
+    }
+    .emplacement div {
+        width: 90%;
+        margin: 1% auto;
+    }
+
+    .option_flex {
+        width: 95%;
+    }
+
+    .option_flex img {
+        display: none;
+    }
+
+    .index_div_choix {
+       flex-direction: column;
+    }
+
+    .index_div_choix div {
+        width: 60%;
+        margin: 2% auto; 
+    }
+}
+
+.index_section_payement {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 2%;
+    text-align: center;
+    background-color: whitesmoke;
+}
+.index_section_payement div {
+    width: 30%;
+}
+.index_section_payement div img{
+    width: 15%;
+    border: 1px solid #0083b0;
+    border-radius: 50%;
+    PADDING: 3%;
+}
+
+.index_div_h3 {
+    color: #0083b0;
+}
+
+.index_section_payement div p{
+    font-weight: bold;
+}
+
+@media screen and (max-width: 700px) {
+    .index_section_payement {
+        flex-wrap: wrap;
+    }
+    .index_section_payement div {
+        width: 50%;
+    }
+}
+
+
+
+
+

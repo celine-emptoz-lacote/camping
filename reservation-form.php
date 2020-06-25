@@ -33,11 +33,11 @@ $tarifs= mysqli_fetch_all($query_tarif, MYSQLI_ASSOC);
                 <?php endif ?>
                 <form action="php/traitement/reservation-form.php" method="post">
     
-                   <select name="place_choice" id="place">
+                   <select name="place_choice" id="place" <?php if (isset($_GET['lieu'])) {  echo "disabled ";} ?>>
                         <option value="">Choisissez votre emplacement</option>
-                        <option value="La plage">La PLAGE</option>
-                        <option value="Les pins">Les PINS</option>
-                        <option value="Le Maquis">Le MAQUIS</option>
+                        <option value="La plage"  <?php if (isset($_GET['lieu'])) { if ($_GET['lieu'] == "0" ){ echo "selected ";}} ?> >La PLAGE</option>
+                        <option value="Les pins"  <?php if (isset($_GET['lieu'])) { if ($_GET['lieu'] == "1") { echo "selected " ;}} ?>>Les PINS</option>
+                        <option value="Le Maquis" <?php if (isset($_GET['lieu'])) { if ($_GET['lieu'] == "2") { echo "selected ";}} ?>>Le MAQUIS</option>
                     </select>
                     
                     <select name="type" id="type">
@@ -49,7 +49,7 @@ $tarifs= mysqli_fetch_all($query_tarif, MYSQLI_ASSOC);
                     <div class="dates">
                         <div class="date_form">
                             <label for="debut">Date de début</label>
-                            <input type="date" name="date_debut" id="debut">
+                            <input type="date" name="date_debut" id="debut" value="<?php if(isset($_GET['jour'])) { echo $_GET['jour']; } ?>" <?php if(isset($_GET['jour'])) { echo " disabled"; } ?>>
                         </div>
                         <div class="date_form">
                             <label for="fin">Date de fin</label>
