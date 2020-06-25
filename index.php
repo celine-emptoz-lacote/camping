@@ -16,6 +16,9 @@ $resultat = mysqli_fetch_all($query,MYSQLI_ASSOC);
     <title>Document</title>
     <link rel="stylesheet" href="font/fontello/css/fontello.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="font/fontello/css/fontello.css">
+    <link rel="stylesheet" href="font/fontello1/css/fontello.css">
+
 </head>
 <body>
     <header><?php include 'php/include/header.php'?></header>

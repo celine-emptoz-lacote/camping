@@ -7,12 +7,15 @@
     <title>Planning</title>
     <link rel="stylesheet" href="font/fontello/css/fontello.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="font/fontello/css/fontello.css">
+    <link rel="stylesheet" href="font/fontello1/css/fontello.css">
 </head>
 <body>
     <header><?php include 'php/include/header.php'?></header>
     <main class="main_planning"> 
 
     <?php 
+    
 
     require 'php/traitement/functions.php';
 
