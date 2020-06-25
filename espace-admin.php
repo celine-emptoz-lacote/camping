@@ -10,6 +10,7 @@ $db= mysqli_connect("localhost","root","","camping");
 $req_table="SELECT * FROM `tarifs`";
 $query_table= mysqli_query($db, $req_table);
 $table_prices=mysqli_fetch_all($query_table);
+
 // END DATA TARIF
 
 // REQUETE DATA RESERVATIONS
@@ -46,15 +47,6 @@ if(isset($_GET['id_booking'])){
 }
 //END REQUETE RESERVATION
 
-// REQUETE POUR PRIX TOTAL RESERVATION
-$req_prices="SELECT * FROM reservations 
-             LEFT JOIN tarifs 
-             ON reservations.option_1= tarifs.nom OR reservations.option_2= tarifs.nom OR reservations.option_3= tarifs.nom";
-
-$query_prices=mysqli_query($db, $req_prices);
-$prices=mysqli_fetch_all($query_prices, MYSQLI_ASSOC);
-
-
 
 ?>
 
@@ -65,10 +57,17 @@ $prices=mysqli_fetch_all($query_prices, MYSQLI_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="font/fontello/css/fontello.css">
+
     <title>Espace-administrateur</title>
 </head>
 <body>
+<header><?php include("php/include/header.php");?></header>
 <main class="main_admin">
+    <h1 id="title_admin">Espace administrateur</h1>
+    <?php if(isset($_SESSION['success'])):?>
+        <p class="success"><?= $_SESSION['success']?></p>
+    <?php endif ?>
+
     <h1>Les tarifs</h1>
     <section>
         <form action="" method="POST">
@@ -89,7 +88,8 @@ $prices=mysqli_fetch_all($query_prices, MYSQLI_ASSOC);
 
                     $req_prices="SELECT * FROM `tarifs` WHERE id=$i";
                     $query_prices=mysqli_query($db, $req_prices);
-                    $prices=mysqli_fetch_all($query_prices, MYSQLI_ASSOC);?>
+                    $prices=mysqli_fetch_all($query_prices, MYSQLI_ASSOC);
+                    ?>
                     <tr>
                         <td class="option_name"><?= $prices[0]['nom']?></td>
 
@@ -110,7 +110,11 @@ $prices=mysqli_fetch_all($query_prices, MYSQLI_ASSOC);
             <?php endif ?>
 
             <?php if(isset($_GET['id'])):?>
-            
+            <?php $id=$_GET['id'];
+            $req_prices="SELECT * FROM `tarifs` WHERE id=$id";
+            $query_prices=mysqli_query($db, $req_prices);
+            $prices=mysqli_fetch_all($query_prices, MYSQLI_ASSOC);
+            ?>
             <div class="change_price">
                 <p>Veuillez entrer le nouveau prix pour l'option <?= $prices[0]['nom']?>:</p>
                 <input type="number" name="new_price" value= <?= $prices[0]['prix']?>>
@@ -131,20 +135,19 @@ $prices=mysqli_fetch_all($query_prices, MYSQLI_ASSOC);
                     <th>Date de fin</th>
                     <th>Type</th>
                     <th>Emplacement</th>
-                    <th>Option_1</th>
-                    <th>Option_2</th>
-                    <th>Option_3</th>
+                    <th>Option Borne</th>
+                    <th>Option Disco</th>
+                    <th>Option Pack activité</th>
                     <th>Supprimer</th>
                     <th>Modifier</th>
                 </tr>
             </thead>
             <tbody>
                 <?php for($i=0; $i<count($data_booking); $i++):?>
-                
-
+                    
                     <tr>
-                        <td><?= $data_booking[$i]['debut']?></td>
-                        <td><?= $data_booking[$i]['fin']?></td>
+                        <td><?= strftime('%d-%m-%Y',strtotime($data_booking[$i]['debut']))?></td>
+                        <td><?= strftime('%d-%m-%Y',strtotime($data_booking[$i]['fin']))?></td>
 
                         <td><?php if($data_booking[$i]['type']==1){
                             echo "tente";}
@@ -153,9 +156,24 @@ $prices=mysqli_fetch_all($query_prices, MYSQLI_ASSOC);
                         </td>
 
                         <td><?= $data_booking[$i]['emplacement']?></td>
-                        <td><?= $data_booking[$i]['option_1']?></td>
-                        <td><?= $data_booking[$i]['option_2']?></td>
-                        <td><?= $data_booking[$i]['option_3']?></td>
+                        <td><?php if(empty($data_booking[$i]['option_1'])){
+                            echo "<img src='src/img/close.png' alt='red icon'>";}
+                                  else{
+                                      echo "<img src='src/img/tick.png' alt='green icon'>";                                 
+                                       } 
+                            ?></td>
+                        <td><?php if(empty($data_booking[$i]['option_2'])){
+                            echo "<img src='src/img/close.png' alt='red icon'>";}
+                                  else{
+                                      echo "<img src='src/img/tick.png' alt='green icon'>";                                 
+                                       } 
+                            ?></td>
+                        <td><?php if(empty($data_booking[$i]['option_3'])){
+                            echo "<img src='src/img/close.png' alt='red icon'>";}
+                                  else{
+                                      echo "<img src='src/img/tick.png' alt='green icon'>";                                 
+                                       } 
+                            ?></td>
                         <td><a href="espace-admin.php?id_booking=<?=$data_booking[$i]['id']?>" class="delete"></a></td>
                         <td><a href="change-reservation.php?id_booking=<?=$data_booking[$i]['id']?>" class="link_to"></a></td>
                         
@@ -169,6 +187,8 @@ $prices=mysqli_fetch_all($query_prices, MYSQLI_ASSOC);
     </section>
 
 </main>
+
     
 </body>
 </html>
+<?php unset($_SESSION['success'])?>

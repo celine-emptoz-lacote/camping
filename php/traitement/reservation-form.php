@@ -1,13 +1,15 @@
 <?php
 session_start();
-
 date_default_timezone_set('Europe/Paris');
 $date=date('Y-m-d');
-$error=null;
 
 $db= mysqli_connect("localhost","root","","camping");
 
 $id_session=intval($_SESSION["id"]);
+
+$option_1=null;
+$option_2=null;
+$option_3=null;
 
 
 if(isset($_POST['validate'])){
@@ -28,20 +30,16 @@ if(isset($_POST['validate'])){
     
     $query_count=mysqli_query($db, $req_count_places);
     $count_places=mysqli_fetch_all($query_count);
-   
     
-  
-
    
     if(!empty($lieu)&& !empty($type) && !empty($debut) && !empty($fin)){
         
-        if(isset($_POST['option_choice'])){
+        if(!empty($_POST['option_choice'])){
 
             foreach($_POST['option_choice'] as $option_selected){
                 if($option_selected == "borne"){
                     $option_1="borne";
                 }
-                
                 if($option_selected == "disco"){
                     $option_2="disco";
                 }
@@ -52,23 +50,30 @@ if(isset($_POST['validate'])){
         }
 
     
-        if($debut<$date){
-                 echo $error="Vous ne pouvez pas réserver à une date antérieure"; }
+        if($debut < $date){
+                $_SESSION["error"]="Vous ne pouvez pas réserver à une date antérieure";
+                header("Location:../../reservation-form.php");
+                
+                 }
 
-        if($debut>$fin){
-                 echo $error="Créneau invalide";}
+        elseif($debut>$fin){
+            $_SESSION["error"]="Créneau invalide";
+                //header("Location:../../reservation-form.php");
+            }
 
-        if(empty($date_event)){
+        elseif(empty($date_event)){
             
             $req_insert="INSERT INTO `reservations`( `debut`, `fin`, `type`,  `emplacement`, `id_utilisateur`, `option_1`, `option_2`, `option_3`) 
             VALUES ('$debut','$fin',$type,'$lieu',$id_session,'$option_1','$option_2','$option_3')";
             
-           
+            
                    
             mysqli_query($db,$req_insert);
+            $_SESSION['success']="Votre réservation a bien été enregistrée.";
+            header("Location:../../profil.php");
 
         }
-        if(!empty($date_event)){
+        elseif(!empty($date_event)){
 
 
             for( $i=0;  $i<count($date_event); $i++){
@@ -79,12 +84,11 @@ if(isset($_POST['validate'])){
                     || ($date_event[$i]['debut']<= $fin 
                     && $fin <= $date_event[$i]['fin'])){
                         
-                    if(($date_event[$i]['type']+$count_places[0][0]) > 4){
-                        $error= "Désolée nous sommes complet. Veuillez réserver à une autre date";
-                    }       
+                            
                     if($count_places[0][0] >= 4){
                   
-                        $error= "Désolée nous sommes complet. Veuillez réserver à une autre date";
+                        $_SESSION["error"]= "Désolée nous sommes complet. Veuillez réserver à une autre date";
+                        header("Location:../../reservation-form.php");
                                     
                     }
                     else
@@ -92,8 +96,10 @@ if(isset($_POST['validate'])){
                          $req_insert="INSERT INTO `reservations`( `debut`, `fin`, `type`,  `emplacement`, `id_utilisateur`, `option_1`, `option_2`, `option_3`) 
                           VALUES ('$debut','$fin',$type,'$lieu',$id_session,'$option_1','$option_2','$option_3')";
                         
-                          echo"ça marche!!!";     
+                    
                          mysqli_query($db,$req_insert);
+                         $_SESSION['success']="Votre réservation a bien été enregistrée.";
+                         header("Location:../../profil.php");
                         
                                 
                        
@@ -102,7 +108,7 @@ if(isset($_POST['validate'])){
                             
                            
                 }
-          
+            }    
 
 
 
@@ -113,61 +119,11 @@ if(isset($_POST['validate'])){
 
 
     }
+    else{
+        $_SESSION['error']="Veuillez remplir tous les champs";
+        header("Location:../../reservation-form.php");
+    }
                 
 }
- 
-}
-
-
-
-   
-
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <main>
-    <p><?= $error ?></p>
-<form action="" method="post">
-
-    <label for="place">Lieu</label>
-    <select name="place_choice" id="place">
-        <option value="">Choissisez votre emplacement</option>
-        <option value="La plage">La PLAGE</option>
-        <option value="Les pins">Les PINS</option>
-        <option value="Le Maquis">Le MAQUIS</option>
-    </select>
-
-    <label for="type">Type</label>
-    <select name="type" id="type">
-        <option value="">Type:</option>
-        <option value="1">Tente</option>
-        <option value="2">Camping-Car</option> 
-    </select>
-
-    <label for="debut">Date de début</label>
-    <input type="date" name="date_debut" id="debut">
-    <label for="fin">Date de fin</label>
-    <input type="date" name="date_fin" id="fin">
-    <label for="options">Options</label>
-    <label for="borne">Borne électrique 2€</label>
-    <input type=checkbox name="option_choice[]" id="borne" value="borne">
-    <label for="disco">Disco-club: Les girelles dansantes 17€</label>
-    <input type=checkbox id="disco" name="option_choice[]" value="disco">
-    <label for="pack">Pack activité 30€</label>
-    <input type=checkbox id="pack" name="option_choice[]" value="pack">
- 
-    <button type="submit" name="validate">Valider</button>
-
-
-</form>
-    </main>
-    
-</body>
-</html>

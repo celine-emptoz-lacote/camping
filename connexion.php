@@ -2,9 +2,10 @@
 session_start();
 $db= mysqli_connect("localhost","root","","camping");
 $error=null;
-$req_connect= "SELECT * FROM `utilisateurs` " ;
+/*$req_connect= "SELECT * FROM `utilisateurs` " ;
 $query_connect = mysqli_query($db,$req_connect);
-$data_users = mysqli_fetch_all($query_connect);
+$data_users = mysqli_fetch_all($query_connect);*/
+
 
 if(isset($_POST["valider"])){
     $login=htmlentities($_POST["login"]);
@@ -19,7 +20,8 @@ if(isset($_POST["valider"])){
         {
             $error="Login ou mot de passe incorrect";
         }
-        if(password_verify($password, $data_users[0][2])){
+
+        elseif(password_verify($password, $data_users[0][2])){
             if($data_users[0][3] == "administrateur"){
                 session_start();
                 
@@ -62,11 +64,11 @@ if(isset($_POST["valider"])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="src/font/fontello/css/fontello.css">
+    <link rel="stylesheet" href="font/fontello/css/fontello.css">
     <title>Connectez vous</title>
 </head>
 <body>
-    <!--<?php include("header.php");?></header>-->
+<header><?php include("php/include/header.php");?></header>
     
     <main class="main_connect">
 
@@ -79,16 +81,18 @@ if(isset($_POST["valider"])){
     </div>
 
     <?php endif; ?>
-        <?php if($error): ?>
-            <div class="error">
-            <p><?=  $error ?></p>
-            </div>
-            <?php endif; ?>
+
         <div class="big_box">
             <div class="box">
                 
 
                 <h1>Se connecter</h1>
+
+                <?php if($error): ?>
+                    <div class="error">
+                        <p><?=  $error ?></p>
+                    </div>
+                <?php endif; ?>
 
                 <form action="" method="POST">
                     
@@ -106,6 +110,6 @@ if(isset($_POST["valider"])){
             </div>
         </div>
     </main>
-    <!--<footer><?php include("footer.php");?></footer>-->
+    <footer><?php include("php/include/footer.php");?></footer>
 </body>
 </html>

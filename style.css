@@ -1,0 +1,607 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oregano:ital@0;1&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    list-style-type: none;
+   
+
+}
+/* HEADER */
+header a{
+    color: black;
+    font-weight: 600;
+}
+.header_menu{
+    display: flex;
+    justify-content: space-between;
+    padding: 1%;
+}
+.header_menu h1{
+    font-family: 'Oregano', cursive;
+    text-align: center;
+}
+.icon_menu:before { 
+    font-family: 'fontello';
+    content: '\f0c9';
+    font-size: 1.5em;
+    display: none;
+    
+ }
+ nav{
+     display: flex;
+     flex-direction: column;
+     align-self: flex-end;
+     width: 100%;
+ }
+ .submenu{
+     display: flex;
+     justify-content: space-around;
+     width: 100%;
+ }
+
+
+
+
+.img_index{
+    height: 40vh;
+    background: url(src/img/acces-direct-tente-camping-navarrosse-biscarrosse-2810-1400x300.jpg);
+    box-shadow: inset 800px -18px 364px 7px rgba(0, 0, 0, 0.4);
+    background-color: transparent;
+    opacity: 1;
+    background-size: cover;
+    border-bottom-left-radius: 15%;
+    border-bottom-right-radius: 15%;
+  
+}
+.img_index h1{
+    padding: 2%;
+    color: white;
+    font-weight: 500;
+
+}
+
+@media screen and (max-width:1000px){
+    .header_menu{
+        display: flex;
+        justify-content: space-between;
+    }
+    .menu{
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+       
+    }
+    ul{
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+    }
+    .icon_menu{
+        display: flex;
+        align-self: flex-end;
+        
+    }
+    .menu:hover .submenu{
+        display: block;
+        width: 30%;
+        top: 9%;
+        right: 0;
+        position: absolute;
+        z-index:10;
+        color: red;
+        
+        
+    }
+    .submenu:hover .submenu{
+        display: block;
+        width: 30%;
+        top: 9%;
+        right: 0;
+        position: absolute;
+        z-index:10;
+        transition: 2s;
+        
+        
+    }
+    .submenu{
+        background-color: white;
+        text-align: center;
+        width: 30%;
+        height: 18em;
+        display: none;
+        margin: 0;
+        
+
+    }
+    .submenu a{
+        font-weight: 600;
+    }
+    .submenu a:hover{
+        opacity: 0.8;
+    }
+    .menu_ul{
+        display: flex;
+        flex-direction: column;
+    }
+    .submenu li{
+        padding: 5%;
+    }
+    .icon_menu:before{
+        display: flex;
+    }
+
+
+}
+
+/*PAGE ADMIN*/
+.main_admin{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    
+}
+.main_admin h1{
+    width: 100%;
+    padding: 1%;
+    background: linear-gradient(to right, #00b4db, #0083b0);
+    font-weight: lighter;
+    color: white;
+}
+#title_admin{
+    background: white;
+    color: black;
+    text-align: center;
+    font-weight: 600;
+}
+.main_admin section{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3%;
+}
+.main_admin table{
+    width: 100%;
+}
+
+.main_admin form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.table_prices{
+    width: 50%;
+    border: 2px solid rgb(200, 200, 200);
+    border-collapse: collapse;
+    text-align: center;
+    margin: 1em;
+}
+.table_prices td{
+    border: 2px solid rgb(200, 200, 200);
+    padding: 1em;
+}
+.table_prices th, .table_booking th{
+    background: linear-gradient(to right, #00b4db, #0083b0);
+    padding: 1em;
+    color: white;
+}
+.option_name{
+    text-transform: uppercase;
+}
+.link_to:before{
+    font-family: 'fontello';
+    content:"z";
+    color: black;
+}
+.delete:before{
+    font-family: 'fontello';
+    content:"t";
+    color: #1e62d8;
+}
+.change_price{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1em;
+    width: 50%;
+}
+.change_price p{
+    padding: 1em;
+    text-align: center;
+}
+.change_price input{
+    text-align: center;
+    width: 25%;
+    margin: 1em;
+    padding: 1%;
+    
+}
+.submit_price{
+    width: 25%;
+    padding:2%;
+    margin: 1em;
+    text-transform: uppercase;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+.table_booking{
+    width: 70%;
+    border: 2px solid rgb(200, 200, 200);
+    border-collapse: collapse;
+    text-align: center;
+    margin: 1em;
+}
+.table_booking td {
+    border: 2px solid rgb(200, 200, 200);
+    padding: 1em;
+}
+
+
+
+/*PAGE RESERVATION FORM*/
+
+.main_reservation_form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    background-image: url(src/img/camping-3893587_1920.jpg);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.7;
+}
+.container_reservation{
+    display: flex;
+    justify-content: space-around;
+    padding: 1%;
+
+}
+.div_booking{
+    height: 81vh;
+    width: 30%;
+    padding: 2%;
+    background-color: white;
+    text-align: center;
+    border-radius: 10px;
+}
+.div_booking form{
+    width: 100%;
+}
+.div_booking h1{
+    padding: 2%;
+}
+.div_booking input, .div_booking select{
+    background: #ebecee;
+    border: none;
+}
+.div_text{
+    width: 30%;
+}
+#place, #type{
+    width: 90%;
+    padding: 3%;
+    margin: 2%;
+}
+.dates{
+    display: flex;
+    justify-content: space-around;
+    padding: 3%;
+    width: 100%;
+    
+}
+.date_form{
+    padding: 2%;
+    margin-left: 1%;
+}
+
+.date_form input{
+    color: rgba(62, 72, 92, 0.3);
+    padding:2%
+}
+.option_choice{
+    padding: 1%;
+}
+.all_options{
+    display: flex;
+    flex-direction: column;
+}
+.all_options div{
+    padding: 2%;
+}
+.div_booking button{
+    padding: 3% 10%;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: white;
+    background-color: #1e62d8;
+    border-radius: 4px;
+    border: none;
+    text-transform: uppercase;
+    margin-top: 3%;
+}
+.div_booking button:hover, .div_booking button:focus{
+    opacity: 0.9;
+}
+.div_text h1, .div_text p{
+    padding: 5%;
+}
+
+.div_text p{
+    font-weight: 500;
+}
+@media screen and (max-width:1000px){
+    .div_text{
+        display: none;
+    }
+    .div_booking{
+        width: 50%;
+    }
+    .dates{
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
+/*Style message d'erreur ou de succès*/
+.error{
+    background: #f8d7da;
+    text-align: center;
+    padding: 1%;
+  
+    
+}
+.success{
+    background: #d4edda;
+    text-align: center;
+    padding: 1%;
+   
+}
+
+/*PAGE CONNEXION*/
+.main_connect{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.big_box{
+    display: flex;
+    text-align: center;
+    width: 70%;
+    height: 60vh;
+    -webkit-box-shadow: 0px 0px 22px 5px rgba(0,0,0,0.35); 
+    box-shadow: 0px 0px 22px 5px rgba(0,0,0,0.35);
+}
+.box, .box2{
+    width: 50%;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.box{
+    background-color: white;
+}
+.box2{
+    background: linear-gradient(to right, #00b4db, #0083b0);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.box form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+	justify-content: center;
+    padding: 1%;
+    height:70%
+
+}
+.box input{
+    background-color: #eee;
+	border: none;
+	padding: 12px 15px;
+	margin: 8px 0;
+	width: 100%;
+}
+.button_connect{
+    border-radius: 20px;
+	border: 1px solid #0083b0;
+    background: linear-gradient(to right, #00b4db, #0083b0);
+	color: white;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 1em;
+    cursor: pointer;
+	
+}
+.button_box2{
+    border-radius: 20px;
+    border: 1px solid white;
+    font-size: 12px;
+	font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: white;
+}
+
+
+/*PAGE CHANGE RESERVATION*/
+
+ .main_change_booking{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+ }
+ .main_change_booking h1{
+     margin: 1em;
+ }
+ .change_booking{
+     width: 50%;
+     margin-bottom: 1em;
+     -webkit-box-shadow: 0px 0px 22px 5px rgba(0,0,0,0.35); 
+    box-shadow: 0px 0px 22px 5px rgba(0,0,0,0.35);
+    padding: 3%;
+ }
+ .change_booking input, .change_booking select{
+    background: #ebecee;
+    border: none;
+
+ }
+.change_booking form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.change_booking button{
+    border-radius: 20px;
+	border: 1px solid #0083b0;
+    background: linear-gradient(to right, #00b4db, #0083b0);
+	color: white;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 1em;
+    
+}
+.all_options_booking{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+.all_options_booking div{
+    padding: 1%;
+}
+.change_booking label{
+    width: 100%;
+}
+.go_back{
+    color: black;
+    font-weight: bold;
+}
+.go_back:hover{
+    color:#0083b0;
+    transition: 0.5s;
+    
+}
+
+
+/*FOOTER*/
+
+footer{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    background: #2f3542;
+    color: white;
+}
+.newsletter, .social_media, .more_info{
+    width: 30%;
+    padding: 2%;
+}
+.newsletter h3, .newsletter p{
+    padding: 3%;
+}
+.input_newsletter{
+    display: flex;
+    height: 2.5em;
+    
+}
+.input_newsletter button{
+    margin-left: 1%;
+    width: 15%;
+    font-weight: bold;
+    color: white;
+    background-color: #1e62d8;
+    border: none;
+    opacity: 0.7;
+    cursor: pointer;
+    
+  
+}
+.input_newsletter input{
+    width: 80%;
+}
+
+
+.more_info h3, .more_info p, .social_media h3, .social_media p{
+    padding: 3%;
+}
+.more_info p{
+    border: 1px solid white;
+}
+.more_info a{
+    color: white;
+}
+
+#facebook_icon:before{
+    font-family: "fontello";
+    content: "f";
+    color: white;
+    font-size: 1.5em;
+
+}
+
+#twitter_icon:before{
+    font-family: "fontello";
+    content: "b";
+    color: white;
+    font-size: 1.5em;
+
+}
+
+#youtube_icon:before{
+    font-family: "fontello";
+    content: "y";
+    color: white;
+    font-size: 1.5em;
+
+}
+
+#insta_icon:before{
+    font-family: "fontello";
+    content: "i";
+    color: white;
+    font-size: 1.5em;
+
+
+}
+.social_media_icons{
+    padding: 3%;
+    display: flex;
+    justify-content: space-around;
+}
+.icons:hover{
+  transform: scale(1.4);
+  transition:0.5s;
+  opacity: 0.8;
+
+}

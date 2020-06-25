@@ -1,131 +1,5 @@
 <?php
-session_start();
-
-date_default_timezone_set('Europe/Paris');
-$date=date('Y-m-d');
-$error=null;
-
-$db= mysqli_connect("localhost","root","","camping");
-
-$id_session=intval($_SESSION["id"]);
-
-$option_1=null;
-$option_2=null;
-$option_3=null;
-
-
-if(isset($_POST['validate'])){
-
-    $debut= htmlspecialchars($_POST["date_debut"]);
-    $fin= htmlspecialchars($_POST["date_fin"]) ;
-    $lieu=htmlspecialchars($_POST["place_choice"]);
-    $type=htmlspecialchars($_POST["type"]);
-
-    //RECUPERATION DATES
-    $req_event_date= "SELECT * FROM `reservations` WHERE `emplacement`='$lieu' AND (`debut` <= '$debut' AND '$debut' <=`fin`) OR (`debut`< '$fin'AND '$fin' <`fin`)
-    ";
-    $query=mysqli_query($db, $req_event_date);
-    $date_event=mysqli_fetch_all($query, MYSQLI_ASSOC);
-
-    // COMPTER LES EMPLACEMENTS
-    $req_count_places="SELECT SUM(`type`) FROM reservations WHERE `emplacement`='$lieu' AND (`debut` <= '$debut' AND '$debut' <=`fin`) OR (`debut`< '$fin'AND '$fin' <`fin`)";
-    
-    $query_count=mysqli_query($db, $req_count_places);
-    $count_places=mysqli_fetch_all($query_count);
-    
-   
-    
-  
-
-   
-    if(!empty($lieu)&& !empty($type) && !empty($debut) && !empty($fin)){
-        
-        if(!empty($_POST['option_choice'])){
-
-            foreach($_POST['option_choice'] as $option_selected){
-                if($option_selected == "borne"){
-                    $option_1="borne";
-                }
-                if($option_selected == "disco"){
-                    $option_2="disco";
-                }
-                if($option_selected == "pack"){
-                    $option_3="pack";
-                }
-            }  
-        }
-
-    
-        if($debut<$date){
-                $error="Vous ne pouvez pas réserver à une date antérieure"; }
-
-        if($debut>$fin){
-                $error="Créneau invalide";}
-
-        if(empty($date_event)){
-            
-            $req_insert="INSERT INTO `reservations`( `debut`, `fin`, `type`,  `emplacement`, `id_utilisateur`, `option_1`, `option_2`, `option_3`) 
-            VALUES ('$debut','$fin',$type,'$lieu',$id_session,'$option_1','$option_2','$option_3')";
-            
-            
-                   
-            mysqli_query($db,$req_insert);
-
-        }
-        if(!empty($date_event)){
-
-
-            for( $i=0;  $i<count($date_event); $i++){
-                 
-
-                if(($date_event[$i]['debut']<= $debut
-                    && $debut <= $date_event[$i]['fin']) 
-                    || ($date_event[$i]['debut']<= $fin 
-                    && $fin <= $date_event[$i]['fin'])){
-                        
-                            
-                    if($count_places[0][0] >= 4){
-                  
-                        $error= "Désolée nous sommes complet. Veuillez réserver à une autre date";
-                                    
-                    }
-                    else
-                    {
-                         $req_insert="INSERT INTO `reservations`( `debut`, `fin`, `type`,  `emplacement`, `id_utilisateur`, `option_1`, `option_2`, `option_3`) 
-                          VALUES ('$debut','$fin',$type,'$lieu',$id_session,'$option_1','$option_2','$option_3')";
-                        
-                    
-                         mysqli_query($db,$req_insert);
-                        
-                                
-                       
-                    }
-    
-                            
-                           
-                }
-            }    
-
-
-
-
-        }
-   
-
-
-
-    }
-    else{
-        $error="Veuillez remplir tous les champs";
-    }
-                
-}
- 
-
-
-
-
-   
+require("php/traitement/reservation-form.php");
 
 
 ?>
@@ -135,20 +9,25 @@ if(isset($_POST['validate'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="font/fontello/css/fontello.css">
+
     <title>Document</title>
 </head>
 <body>
+
+<header><?php include("php/include/header.php");?></header>
+
     <main class="main_reservation_form">
         <section class="container_reservation">
             <div class="div_booking">
                 <h1>Formulaire</h1>
-                <?php if($error):?>
-                <p class="error"><?= $error ?></p>
+                <?php if(isset($_SESSION['error'])):?>
+                <p class="error"><?= $_SESSION['error'] ?></p>
                 <?php endif ?>
-                <form action="" method="post">
+                <form action="php/traitement/reservation-form.php" method="post">
     
                    <select name="place_choice" id="place">
-                        <option value="">Choissisez votre emplacement</option>
+                        <option value="">Choisissez votre emplacement</option>
                         <option value="La plage">La PLAGE</option>
                         <option value="Les pins">Les PINS</option>
                         <option value="Le Maquis">Le MAQUIS</option>
@@ -199,10 +78,16 @@ if(isset($_POST['validate'])){
             </div>
             <div class="div_text">
                 <h1>Réserver maintenant</h1>
-                <p>Vérifiez nos disponiblité et n'attendez pas pour réserver votre séjour au camping Les Happy Sardines !</p>
+                <p>Vérifiez nos disponibilités et n'attendez pas pour réserver votre séjour au camping Les Happy Sardines !</p>
             </div>
         </section>
     </main>
     
+    <footer><?php include("php/include/footer.php");?></footer>
+    
 </body>
 </html>
+<?php
+unset($_SESSION['error']); 
+ 
+?>
