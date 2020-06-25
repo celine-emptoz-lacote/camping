@@ -18,6 +18,7 @@ $resultat = mysqli_fetch_all($query,MYSQLI_ASSOC);
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header><?php include 'php/include/header.php'?></header>
     <main class="index_main">
         <section>
             <h2 class="index_h2">Nos emplacements</h2>
@@ -113,6 +114,6 @@ $resultat = mysqli_fetch_all($query,MYSQLI_ASSOC);
             </div>
         </section>
     </main>
-
+    <footer><?php include 'php/include/footer.php' ?></footer>
 </body>
 </html>
