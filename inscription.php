@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+<header><?php include 'php/include/header.php'?></header>
 <main class="main_inscription">
     <div class="div_inscription">
         <form action="PHP/traitement/formulaire_inscription.php" method="POST">
@@ -43,7 +43,8 @@
             </div>
         </section>
     <div>
-</main>   
+</main>
+<footer><?php include 'php/include/footer.php' ?></footer>   
 </body>
 </html>
 
