@@ -75,7 +75,7 @@ if (!isset($_SESSION['id'])) {
                 $prix_emplacement=$resultat_tarifs[2]['prix'];
                 $nb_emplacement=$resultat_resa[$i]['type'];
 
-                if($resultat_resa[$i]['option_1'] == "borne" || $resultat_resa[$i]['option_2'] == "borne" || $rresultat_resat[$i]['option_3'] == "borne"){
+                if($resultat_resa[$i]['option_1'] == "borne" || $resultat_resa[$i]['option_2'] == "borne" || $resultat_resa[$i]['option_3'] == "borne"){
                     $prix_borne= $resultat_tarifs[0]['prix'];
                 }
                 else{

@@ -5,7 +5,7 @@ $date=date('Y-m-d');
 
 $db= mysqli_connect("localhost","root","","camping");
 
-$id_session=intval($_SESSION["id"]);
+
 
 $option_1=null;
 $option_2=null;
