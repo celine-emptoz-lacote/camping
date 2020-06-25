@@ -1,5 +1,10 @@
 <?php
+
 require("php/traitement/reservation-form.php");
+
+if(!isset($_SESSION['id'])){
+    header("Location:connexion.php?access_denied");
+}
 
 /* REQUETE TARIF */
 $req_tarif= "SELECT * FROM tarifs";

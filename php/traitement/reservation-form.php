@@ -5,7 +5,7 @@ $date=date('Y-m-d');
 
 $db= mysqli_connect("localhost","root","","camping");
 
-
+$id_session=$_SESSION['id'];
 
 $option_1=null;
 $option_2=null;
@@ -58,7 +58,7 @@ if(isset($_POST['validate'])){
 
         elseif($debut>$fin){
             $_SESSION["error"]="Créneau invalide";
-                //header("Location:../../reservation-form.php");
+            header("Location:../../reservation-form.php");
             }
 
         elseif(empty($date_event)){
@@ -66,8 +66,7 @@ if(isset($_POST['validate'])){
             $req_insert="INSERT INTO `reservations`( `debut`, `fin`, `type`,  `emplacement`, `id_utilisateur`, `option_1`, `option_2`, `option_3`) 
             VALUES ('$debut','$fin',$type,'$lieu',$id_session,'$option_1','$option_2','$option_3')";
             
-            
-                   
+     
             mysqli_query($db,$req_insert);
             $_SESSION['success']="Votre réservation a bien été enregistrée.";
             header("Location:../../profil.php");
@@ -98,6 +97,7 @@ if(isset($_POST['validate'])){
                         
                     
                          mysqli_query($db,$req_insert);
+                         
                          $_SESSION['success']="Votre réservation a bien été enregistrée.";
                          header("Location:../../profil.php");
                         

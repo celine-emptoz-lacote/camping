@@ -1,10 +1,13 @@
 <?php
 session_start();
+
 $db= mysqli_connect("localhost","root","","camping");
 $error=null;
-/*$req_connect= "SELECT * FROM `utilisateurs` " ;
-$query_connect = mysqli_query($db,$req_connect);
-$data_users = mysqli_fetch_all($query_connect);*/
+
+/* POUR SE CONNECTER EN TANT QU'ADMINISTRATEUR
+    login = admin
+    mdp = admin
+*/
 
 
 if(isset($_POST["valider"])){
@@ -74,7 +77,7 @@ if(isset($_POST["valider"])){
 
     <?php if(isset($_GET["access_denied"])):?>
 
-    <div class="error">
+    <div class="access_denied">
 
         <p><?php echo "Veuillez vous connecter afin d'accéder à cette page"; ?></p>
         

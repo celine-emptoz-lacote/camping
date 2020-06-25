@@ -371,6 +371,12 @@ header a{
     padding: 1%;
    
 }
+.access_denied{
+    background: #f8d7da;
+    text-align: center;
+    padding: 1%;
+    margin: 2%;
+}
 
 /*PAGE CONNEXION*/
 .main_connect{
