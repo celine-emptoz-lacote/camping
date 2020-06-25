@@ -1,6 +1,12 @@
 <?php
 require("php/traitement/reservation-form.php");
 
+/* REQUETE TARIF */
+$req_tarif= "SELECT * FROM tarifs";
+$query_tarif= mysqli_query($db, $req_tarif);
+$tarifs= mysqli_fetch_all($query_tarif, MYSQLI_ASSOC);
+
+
 
 ?>
 <!DOCTYPE html>
@@ -55,15 +61,15 @@ require("php/traitement/reservation-form.php");
                         </div>
                         <div class="all_options">
                             <div>
-                                <label for="borne">Borne électrique 2€</label>
+                                <label for="borne">Borne électrique <?= $tarifs[0]['prix']?>€</label>
                                 <input type=checkbox name="option_choice[]" id="borne" value="borne">
                             </div>
                             <div>
-                                <label for="disco">Disco-club 17€</label>
+                                <label for="disco">Disco-club <?= $tarifs[1]['prix']?>€</label>
                                 <input type=checkbox id="disco" name="option_choice[]" value="disco">
                             </div>
                             <div>
-                                <label for="pack">Pack activité 30€</label>
+                                <label for="pack">Pack activité <?= $tarifs[3]['prix']?>€</label>
                                 <input type=checkbox id="pack" name="option_choice[]" value="pack">
                             </div>
                             
