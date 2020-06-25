@@ -847,9 +847,9 @@ footer{
 
 .connexion {
     display: block;
-    width: 30%;
-    padding: 3%;
-    margin: auto;
+    width: 35%;
+    padding: 1%;
+    margin: 3% auto;
     text-decoration: none;
     border: 1px solid white;
     border-radius: 20px;
