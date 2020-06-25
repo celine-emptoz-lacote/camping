@@ -6,6 +6,7 @@ $req_tarif= "SELECT * FROM tarifs";
 $query_tarif= mysqli_query($db, $req_tarif);
 $tarifs= mysqli_fetch_all($query_tarif, MYSQLI_ASSOC);
 
+/* FIN REQUETE */
 
 
 ?>
